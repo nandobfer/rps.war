@@ -3,10 +3,10 @@ import { Unit } from "./Unit"
 
 export class Team {
     units: Unit[] = []
-    color: string
+    image: string
 
     constructor(data: TeamOptions) {
-        this.color = data.color
+        this.image = data.image
 
         for (let index = 1; index <= data.units; index++) {
             const unit = new Unit(data)

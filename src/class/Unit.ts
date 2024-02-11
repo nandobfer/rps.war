@@ -6,17 +6,17 @@ export class Unit {
     id: string
     x: number
     y: number
-    color: string
+    image: string
 
-    width = 10
-    height = 10
+    width = 30
+    height = 30
 
     constructor(data: UnitOptions) {
         this.id = uid()
         const { x, y } = this.generatePos(data.sector_x, data.sector_y, data.quadrant_size)
         this.x = x
         this.y = y
-        this.color = data.color
+        this.image = data.image
     }
 
     generatePos(sector_x: number, sector_y: number, quadrant_size: number) {
