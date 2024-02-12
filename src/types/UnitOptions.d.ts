@@ -3,4 +3,5 @@ export declare interface UnitOptions {
     sector_y: 1 | 2
     image: string
     quadrant_size: number
+    render: () => void
 }

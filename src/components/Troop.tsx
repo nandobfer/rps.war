@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Box, CardMedia } from "@mui/material"
 import { Unit } from "../class/Unit"
 

@@ -3,6 +3,7 @@ export declare interface TeamOptions {
     sector_y: 1 | 2
     quadrant_size: number
     image: string
+    render: () => void
 
     units: number
 }

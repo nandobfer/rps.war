@@ -21,7 +21,7 @@ export const GamePage: React.FC<GamePageProps> = ({}) => {
 
     useEffect(() => {
         console.log(war)
-    }, [])
+    }, [war])
 
     return <Box sx={{ position: "relative" }}>{war.teams.map((team) => team.units.map((unit) => <Troop key={unit.id} unit={unit} />))}</Box>
 }
