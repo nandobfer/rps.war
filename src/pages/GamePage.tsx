@@ -1,27 +1,28 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Box } from "@mui/material"
-import SettingsContext from "../contexts/settingsContext"
-import { War } from "../class/War"
-import { WarOptions } from "../types/WarOptions"
 import { Troop } from "../components/Troop"
+import { useIo } from "../hooks/useIo"
+import { Team } from "../types/Team"
+import { unstable_batchedUpdates } from "react-dom"
 
 interface GamePageProps {}
 
 export const GamePage: React.FC<GamePageProps> = ({}) => {
-    const { settings } = useContext(SettingsContext)
-    const [render, setRender] = useState({})
+    const io = useIo()
 
-    const war_options: WarOptions = {
-        units: settings.units,
-        quadrant_size: Math.floor(window.innerHeight / 2),
-        render: () => setRender({}),
-    }
-
-    const [war, setWar] = useState(new War(war_options))
+    const [teams, setTeams] = useState<Team[]>([])
 
     useEffect(() => {
-        console.log(war)
-    }, [war])
+        io.on("war:sync", (teams) => {
+            unstable_batchedUpdates(() => {
+                setTeams(teams)
+            })
+        })
 
-    return <Box sx={{ position: "relative" }}>{war.teams.map((team) => team.units.map((unit) => <Troop key={unit.id} unit={unit} />))}</Box>
+        return () => {
+            io.off("war:sync")
+        }
+    }, [])
+
+    return <Box sx={{ position: "relative" }}>{teams.map((team) => team.units.map((unit) => <Troop key={unit.id} unit={unit} />))}</Box>
 }
